@@ -1,0 +1,117 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Weather Tool Schema",
+  "description": "Schema for weather tool requests and responses",
+  "definitions": {
+    "request": {
+      "type": "object",
+      "required": ["location"],
+      "properties": {
+        "location": {
+          "type": "string",
+          "description": "City, address, or location to get weather for"
+        },
+        "units": {
+          "type": "string",
+          "enum": ["metric", "imperial"],
+          "default": "metric",
+          "description": "Temperature units (Celsius or Fahrenheit)"
+        },
+        "include_forecast": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether to include future forecast"
+        }
+      }
+    },
+    "response": {
+      "type": "object",
+      "required": ["location", "current"],
+      "properties": {
+        "location": {
+          "type": "object",
+          "required": ["name", "country", "coordinates"],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "coordinates": {
+              "type": "object",
+              "required": ["lat", "lon"],
+              "properties": {
+                "lat": {
+                  "type": "number"
+                },
+                "lon": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        },
+        "current": {
+          "type": "object",
+          "required": ["temperature", "conditions", "humidity"],
+          "properties": {
+            "temperature": {
+              "type": "number",
+              "description": "Temperature in requested units"
+            },
+            "conditions": {
+              "type": "string",
+              "description": "Weather description (e.g., 'partly cloudy')"
+            },
+            "humidity": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "Relative humidity percentage"
+            },
+            "wind_speed": {
+              "type": "number",
+              "description": "Wind speed in requested units"
+            }
+          }
+        },
+        "forecast": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["date", "temperature", "conditions"],
+            "properties": {
+              "date": {
+                "type": "string",
+                "format": "date",
+                "description": "ISO 8601 date"
+              },
+              "temperature": {
+                "type": "object",
+                "required": ["min", "max"],
+                "properties": {
+                  "min": {
+                    "type": "number"
+                  },
+                  "max": {
+                    "type": "number"
+                  }
+                }
+              },
+              "conditions": {
+                "type": "string"
+              },
+              "precipitation_chance": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
