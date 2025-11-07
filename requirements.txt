@@ -1,0 +1,41 @@
+# Core / commonly used libraries in this repository
+requests>=2.31.0
+jsonschema>=4.20.0
+numpy
+pandas
+tqdm
+
+# OpenAI usage (embedding / chat)
+openai
+
+# PDF processing and FAISS vector search
+# PyMuPDF provides `fitz` module
+PyMuPDF
+# On many systems use faiss-cpu (or faiss-gpu if you have CUDA); adjust as needed
+faiss-cpu
+
+# Transformers / model runtime (used in some RAG examples)
+transformers
+torch
+datasets
+
+# Evaluation and metrics libraries used in tests
+ragas
+deepeval
+
+# Token counting utilities
+tiktoken
+
+# Agent framework packages (may be third-party or local packages)
+autogen
+autogen-agentchat
+autogen-ext
+
+# Testing
+pytest
+
+# Notes:
+# - Some packages (torch, faiss, transformers) are large and platform-specific.
+#   Install these separately if you need GPU support (e.g. install a CUDA-build of torch).
+# - If installation of `faiss-cpu` fails on your platform, consult FAISS install docs
+#   or use the system package appropriate for your OS.
